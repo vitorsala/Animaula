@@ -1,0 +1,484 @@
+fileFormatVersion: 2
+guid: f5be8eb4f2c9e4ec09b083a0fe37cff2
+timeCreated: 1475957452
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: Nova_spritesheet_0
+    21300002: Nova_spritesheet_1
+    21300004: Nova_spritesheet_2
+    21300006: Nova_spritesheet_3
+    21300008: Nova_spritesheet_4
+    21300010: Nova_spritesheet_5
+    21300012: Nova_spritesheet_6
+    21300014: Nova_spritesheet_7
+    21300016: Nova_spritesheet_8
+    21300018: Nova_spritesheet_9
+    21300020: Nova_spritesheet_10
+    21300022: Nova_spritesheet_11
+    21300024: Nova_spritesheet_12
+    21300026: Nova_spritesheet_13
+    21300028: Nova_spritesheet_14
+    21300030: Nova_spritesheet_15
+    21300032: Nova_spritesheet_16
+    21300034: Nova_spritesheet_17
+    21300036: Nova_spritesheet_18
+    21300038: Nova_spritesheet_19
+    21300040: Nova_spritesheet_20
+    21300042: Nova_spritesheet_21
+    21300044: Nova_spritesheet_22
+    21300046: Nova_spritesheet_23
+    21300048: Nova_spritesheet_24
+    21300050: Nova_spritesheet_25
+    21300052: Nova_spritesheet_26
+    21300054: Nova_spritesheet_27
+    21300056: Nova_spritesheet_28
+    21300058: Nova_spritesheet_29
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: 1
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  buildTargetSettings:
+  - buildTarget: iPhone
+    maxTextureSize: 2048
+    textureFormat: -1
+    compressionQuality: 50
+    allowsAlphaSplitting: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Nova_spritesheet_0
+      rect:
+        serializedVersion: 2
+        x: 75
+        y: 1672
+        width: 260
+        height: 350
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Nova_spritesheet_1
+      rect:
+        serializedVersion: 2
+        x: 412
+        y: 1672
+        width: 260
+        height: 350
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Nova_spritesheet_2
+      rect:
+        serializedVersion: 2
+        x: 711
+        y: 1672
+        width: 270
+        height: 350
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Nova_spritesheet_3
+      rect:
+        serializedVersion: 2
+        x: 1059
+        y: 1672
+        width: 255
+        height: 350
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Nova_spritesheet_4
+      rect:
+        serializedVersion: 2
+        x: 1403
+        y: 1672
+        width: 253
+        height: 350
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Nova_spritesheet_5
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 1332
+        width: 242
+        height: 301
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Nova_spritesheet_6
+      rect:
+        serializedVersion: 2
+        x: 400
+        y: 1332
+        width: 243
+        height: 301
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Nova_spritesheet_7
+      rect:
+        serializedVersion: 2
+        x: 702
+        y: 1332
+        width: 243
+        height: 301
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Nova_spritesheet_8
+      rect:
+        serializedVersion: 2
+        x: 1015
+        y: 1332
+        width: 243
+        height: 301
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Nova_spritesheet_9
+      rect:
+        serializedVersion: 2
+        x: 1340
+        y: 1331
+        width: 243
+        height: 302
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Nova_spritesheet_10
+      rect:
+        serializedVersion: 2
+        x: 52
+        y: 946
+        width: 276
+        height: 359
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Nova_spritesheet_11
+      rect:
+        serializedVersion: 2
+        x: 376
+        y: 946
+        width: 290
+        height: 359
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Nova_spritesheet_12
+      rect:
+        serializedVersion: 2
+        x: 736
+        y: 946
+        width: 285
+        height: 359
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Nova_spritesheet_13
+      rect:
+        serializedVersion: 2
+        x: 1106
+        y: 946
+        width: 285
+        height: 359
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Nova_spritesheet_14
+      rect:
+        serializedVersion: 2
+        x: 1436
+        y: 946
+        width: 273
+        height: 359
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Nova_spritesheet_15
+      rect:
+        serializedVersion: 2
+        x: 1766
+        y: 946
+        width: 257
+        height: 359
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Nova_spritesheet_16
+      rect:
+        serializedVersion: 2
+        x: 148
+        y: 818
+        width: 50
+        height: 89
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Nova_spritesheet_17
+      rect:
+        serializedVersion: 2
+        x: 354
+        y: 810
+        width: 77
+        height: 83
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Nova_spritesheet_18
+      rect:
+        serializedVersion: 2
+        x: 495
+        y: 820
+        width: 98
+        height: 73
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Nova_spritesheet_19
+      rect:
+        serializedVersion: 2
+        x: 631
+        y: 818
+        width: 88
+        height: 85
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Nova_spritesheet_20
+      rect:
+        serializedVersion: 2
+        x: 1236
+        y: 817
+        width: 39
+        height: 36
+      alignment: 9
+      pivot: {x: 0.9354342, y: 0.29034764}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Nova_spritesheet_21
+      rect:
+        serializedVersion: 2
+        x: 1124
+        y: 836
+        width: 86
+        height: 28
+      alignment: 9
+      pivot: {x: 0.69604915, y: 0.4775347}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Nova_spritesheet_22
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 824
+        width: 16
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Nova_spritesheet_23
+      rect:
+        serializedVersion: 2
+        x: 765
+        y: 812
+        width: 96
+        height: 84
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Nova_spritesheet_24
+      rect:
+        serializedVersion: 2
+        x: 1257
+        y: 778
+        width: 37
+        height: 38
+      alignment: 9
+      pivot: {x: 0.80597913, y: 0.45034468}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Nova_spritesheet_25
+      rect:
+        serializedVersion: 2
+        x: 938
+        y: 816
+        width: 115
+        height: 89
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Nova_spritesheet_26
+      rect:
+        serializedVersion: 2
+        x: 1195
+        y: 788
+        width: 44
+        height: 42
+      alignment: 9
+      pivot: {x: 0.9717224, y: 0.2304455}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Nova_spritesheet_27
+      rect:
+        serializedVersion: 2
+        x: 47
+        y: 339
+        width: 384
+        height: 420
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Nova_spritesheet_28
+      rect:
+        serializedVersion: 2
+        x: 593
+        y: 339
+        width: 359
+        height: 365
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Nova_spritesheet_29
+      rect:
+        serializedVersion: 2
+        x: 1154
+        y: 428
+        width: 232
+        height: 179
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
