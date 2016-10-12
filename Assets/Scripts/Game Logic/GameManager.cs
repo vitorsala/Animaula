@@ -2,80 +2,100 @@
 using System.Collections;
 
 public class GameManager : MonoBehaviour {
-	public static GameManager instance;
-	private GameManager(){}
+    public static GameManager instance;
+    private GameManager() { }
 
-	public static GameManager GetSharedInstance(){
-		return instance;
-	}
+    public static GameManager GetSharedInstance() {
+        return instance;
+    }
 
-	Student[] studentInClass;
-	int qtdPerCol;
+    enum GameState {
+        Light, Medium, Heavy, Finished
+    }
+    GameState state;
 
-	public TimerBarComponent timerBar;
+    public TimerBarComponent timerBar;
 
-	public float timer;
-	public int chaos;
+    public float timer;
+    public int chaos;
 
-	public float timeCrying = 0;
-	public float timeSeeking = 0;
-	public float stealInTime = 0; 
-	public int numberOfStudents = 12;
+    public int enterMediumState = 4;
+    public int enterHeavyState = 8;
+    public float timeSeeking = 0;
+    public float stealInTime = 0;
+    public int numberOfStudents = 12;
 
-	public bool paused = false;
+    public GameObject ganhou;
+    public GameObject perdeu;
 
-	public GameObject ganhou;
-	public GameObject perdeu;
+    // Audios
+    public AudioClip lightBGM;
+    public AudioClip mediumBGM;
+    public AudioClip heavyBGM;
 
-	// Audios
-	public AudioClip normal;
-	public AudioClip medio;
-	public AudioClip alto;
+    // Sound Effects
+    public AudioClip StartingSound;
 
-	private bool podeEntrarNoHeavy = true;
-	private bool podeEntrarNoMedio = true;
+    // Camera reference;
+    private AudioController bgAudioSource;
 
-	// Camera reference;
-	AudioSource bgMusic;
-
+    void Awake() {
+        if(instance != null && instance != this) {
+            Destroy(this);
+            return;
+        }
+        instance = this;
+    }
 
 	// Use this for initialization
 	void Start () {
-		instance = this;
-		timerBar.duration = timer;
-		chaos = 0;
-		bgMusic = Camera.main.GetComponent<AudioSource>();
-	}
+        Time.timeScale = 1f;
+        timerBar.duration = timer;
+        state = GameState.Light;
+        chaos = 0;
 
+		bgAudioSource = AudioController.SharedInstance;
+
+        bgAudioSource.ChangeMusic(lightBGM);
+        bgAudioSource.PlaySoundEffect(StartingSound, 0);
+    }
 
 	// Update is called once per frame
 	void Update () {
-		if(chaos >= 4 && podeEntrarNoMedio) {
-			podeEntrarNoMedio = false;
-			float time = bgMusic.time;
-			bgMusic.clip = medio;
-			bgMusic.Play();
-			bgMusic.time = time;
-		}
 
-		if(chaos >= 8 && podeEntrarNoHeavy) {
-			podeEntrarNoHeavy = false;
-			bgMusic.volume = 0.5f;
-			bgMusic.clip = alto;
-			bgMusic.Play();
-		}
+        timer -= Time.deltaTime;
+        if(chaos >= numberOfStudents) {
+            state = GameState.Finished;
+            perdeu.SetActive(true);
+            // PERDER
+        }
+        else if(chaos < numberOfStudents && timer <= 0) {
+            // Vencer
+            state = GameState.Finished;
+            ganhou.SetActive(true);
+        }
 
-		timer -= Time.deltaTime;
-		if(chaos >= numberOfStudents) 
-		{
-			Time.timeScale = 0f;
-			perdeu.SetActive(true);
-			// PERDER
-		}
-		else if(chaos < numberOfStudents && timer <= 0) {
-			// Vencer
-			Time.timeScale = 0f;
-			ganhou.SetActive(true);
-		}
+        switch(state) {
+            case GameState.Light:
+                if(chaos >= enterMediumState) {
+                    bgAudioSource.ChangeMusic(mediumBGM, false);
+                    state = GameState.Medium;
+                }
+                break;
+            case GameState.Medium:
+                if(chaos >= enterHeavyState) {
+                    bgAudioSource.ChangeMusic(heavyBGM);
+                    state = GameState.Heavy;
+                }
+                break;
+
+            case GameState.Heavy:
+
+                break;
+
+            case GameState.Finished:
+                Time.timeScale = 0f;
+                break;
+        }
 	}
 }

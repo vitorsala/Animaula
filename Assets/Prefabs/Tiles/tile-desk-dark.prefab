@@ -146,8 +146,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf84b122e3c864916930d7b254082149, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectList:
-  - {fileID: 1000011230420502, guid: 223e1f8a6f2494623b4c46ac1053fce6, type: 2}
+  prefab: {fileID: 1000011230420502, guid: 223e1f8a6f2494623b4c46ac1053fce6, type: 2}
   selectedObject: 0
   deskOwner: {fileID: 114000013333183318}
   objectInPlace: {fileID: 0}

@@ -25,71 +25,94 @@ public class Student : MonoBehaviour {
 	public int threshold = 20; // Quanto de bagunca precisa pro cara ficar mau
 	public float activation = 1; // In Seconds
 
-	public float timer = 0;
-
 	public StudentStatus status = StudentStatus.Neutral;
 	public Vector2 positionInClass;
 
 	public Desk myDesk;
 
-	private Animator animator;
+    public float timer = 0;
 
-	// Use this for initialization
-	void Start () {
+    private Animator animator;
+    private float currentTime = 0;
+    private bool onDelay = true;
+
+    // Use this for initialization
+    void Awake () {
 		status = StudentStatus.Neutral;
 		bagunca = Random.Range(0, threshold - 5);
-		animator = GetComponent<Animator>();
-		animator.SetInteger("type", (int)type);
 	}
 
-	public float currentTime = 0;
+    void Start() {
+        animator = GetComponent<Animator>();
+        animator.SetInteger("type", (int)type);
+    }
+
 	void Update(){
 		currentTime += Time.deltaTime;
-		animator.SetInteger("status", (int)status);
-		if(timer >= 0) {
-			timer -= Time.deltaTime;
-			if(timer <= 0) {
-				if(status == StudentStatus.Searching) {
-					status = StudentStatus.Crying;
-					myDesk.objectInPlace.gameObject.SetActive(false);
-				}
-				else if(status == StudentStatus.ChaoticBusy) {
-					status = StudentStatus.Chaotic;
-					myDesk.objectInPlace.gameObject.SetActive(false);
-					timer = GameManager.GetSharedInstance().stealInTime;
-				}
-				else if(status == StudentStatus.Chaotic) {
-					Steal();
-				}
-			}
-		}
 
-		if(currentTime >= activation){
-			currentTime = 0;
-			if(bagunca >= threshold && status != StudentStatus.Chaotic && status != StudentStatus.ChaoticBusy) { 
-				status = StudentStatus.Chaotic;
-				myDesk.objectInPlace.gameObject.SetActive(false);
-				timer = GameManager.GetSharedInstance().stealInTime;
-				GameManager.GetSharedInstance().chaos++;
-				//gameObject.GetComponent<SpriteRenderer>().color = new Color(1, 0.6f, 0.6f, 1); // DEBUG
-			}
-			if(status == StudentStatus.ChaoticBusy) {
-				Influences();
-			}
-			else if(status == StudentStatus.Crying) {
-				//gameObject.GetComponent<SpriteRenderer>().color = new Color(0.58f, 0.62f, 0.85f, 1); // DEBUG
-				bagunca++;
-				Influences();
-			}
-			else if(status == StudentStatus.Searching) {
-				//gameObject.GetComponent<SpriteRenderer>().color = new Color(0.57f, 0.85f, 0.59f, 1); // DEBUG
+        if(onDelay) {
+            if(currentTime >= 3) onDelay = false;
+            else return;
+        }
 
-			}
-		}
+        animator.SetInteger("status", (int)status);
+        timer -= Time.deltaTime;
 
+        switch(status) {
+            case StudentStatus.Neutral:
+                if(bagunca >= threshold) {
+                    BecomeChaotic();
+                }
+
+                break;
+            case StudentStatus.Searching:
+                if(timer <= 0) {
+                    status = StudentStatus.Crying;
+                    GameManager.GetSharedInstance().chaos++;
+                    myDesk.HideObject();
+                }
+                
+                break;
+            case StudentStatus.Crying:
+                if(currentTime >= activation) {
+                    currentTime = 0;
+                    bagunca++;
+                    Influences();
+                }
+                if(bagunca >= threshold) {
+                    GameManager.GetSharedInstance().chaos--;
+                    BecomeChaotic();
+                }
+
+                break;
+            case StudentStatus.Chaotic:
+                if(timer <= 0) {
+                    Steal();
+                }
+
+                break;
+            case StudentStatus.ChaoticBusy:
+                if(currentTime >= activation) {
+                    currentTime = 0;
+                    Influences();
+                }
+                if(timer <= 0) {
+                    status = StudentStatus.Chaotic;
+                    myDesk.HideObject();
+                    timer = GameManager.GetSharedInstance().stealInTime;
+                }
+                break;
+        }
 	}
 
-	void Influences(){
+    void BecomeChaotic() {
+        status = StudentStatus.Chaotic;
+        myDesk.HideObject();
+        timer = GameManager.GetSharedInstance().stealInTime;
+        GameManager.GetSharedInstance().chaos++;
+    }
+
+    void Influences(){
 		TileMap map = TileMap.GetSharedInstance();
 
 		Vector2[] positions = new Vector2[]{
@@ -127,7 +150,7 @@ public class Student : MonoBehaviour {
 			myDesk.ShowObject();
 			puff.transform.position = myDesk.objectInPlace.transform.position;
 
-			target.myDesk.HideObject();
+			target.myDesk.ShowObject(true);
 
 			myDesk.objectInPlace.target = target.myDesk.objectInPlace.gameObject;
 

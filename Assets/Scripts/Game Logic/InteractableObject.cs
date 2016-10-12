@@ -69,7 +69,6 @@ public class InteractableObject : MonoBehaviour {
 				isDragging = false;
 
 			}
-
 		}
 	}
 

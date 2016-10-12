@@ -7,14 +7,14 @@ public class TimerBarComponent : MonoBehaviour {
 	public float barDisplay;
 	private GameObject fill;
 	private float xOffset;
-	private float fillHeight;
+	//private float fillHeight;
 	private float fillWidth;
 	private float previousLength;
 
 	void Start () {
 		fill = transform.GetChild(0).gameObject;
 		fillWidth = fill.GetComponent<Renderer>().bounds.max.x - fill.GetComponent<Renderer>().bounds.min.x;
-		fillHeight = fill.GetComponent<Renderer>().bounds.max.y - fill.GetComponent<Renderer>().bounds.min.y;
+		//fillHeight = fill.GetComponent<Renderer>().bounds.max.y - fill.GetComponent<Renderer>().bounds.min.y;
 		xOffset = -(fillWidth / 2) + 0.09f;
 		fill.transform.position = new Vector3 (transform.position.x + xOffset, fill.transform.position.y, 0);
 		fill.transform.localScale = new Vector3(0, 1, 1);

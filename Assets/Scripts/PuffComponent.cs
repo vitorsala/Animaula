@@ -1,8 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class DestroyAfterAnimation : MonoBehaviour {
+public class PuffComponent : MonoBehaviour {
 
+    public AudioClip soundEffect;
+
+    void Start() {
+        AudioController.SharedInstance.PlaySoundEffect(soundEffect, 1);
+    }
 	
 	// Update is called once per frame
 	void Update () {

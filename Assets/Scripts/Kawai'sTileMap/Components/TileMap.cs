@@ -104,10 +104,12 @@ public class TileMap : MonoBehaviour {
 				tileInfo[(int)(go.position.x + size.x * go.position.y)] = go;
 				if(go.property == TileProperties.Student) {
 					go.reference.positionInClass = go.position;
-					Texture2D text = ItemReferences.GetSharedInstance().itens[j];
-					Sprite item = Sprite.Create(text, new Rect(0, 0, text.width, text.height), new Vector2(0.5f, 0.5f));
-					go.reference.myDesk.objectInPlace.gameObject.GetComponent<SpriteRenderer>().sprite = item;
-					j++;
+
+                    Desk sDesk = go.reference.myDesk;
+                    sDesk.selectedObject = j;
+                    sDesk.SpawnObject();
+
+                    j++;
 					temp.Add(go.position);
 				}
 			}
