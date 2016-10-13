@@ -53,7 +53,8 @@ public class InteractableObject : MonoBehaviour {
 				foreach(RaycastHit2D hit in hitInformation) {
 					
 					if(target != null && hit.transform.gameObject == target) {
-						target.GetComponent<InteractableObject>().owner.status = StudentStatus.Neutral;
+						InteractableObject interactable = target.GetComponent<InteractableObject>();
+						interactable.owner.status = StudentStatus.Neutral;
 						owner.status = StudentStatus.Chaotic;
 						owner.timer = GameManager.GetSharedInstance().stealInTime;
 
@@ -70,6 +71,12 @@ public class InteractableObject : MonoBehaviour {
 
 			}
 		}
+	}
+
+	public void ResetPosition(){
+		isDragging = false;
+		transform.localPosition = originalPlace;
+
 	}
 
 	void CheckIfSelected(Touch t){

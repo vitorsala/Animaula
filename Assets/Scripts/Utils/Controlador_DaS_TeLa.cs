@@ -21,6 +21,6 @@ public class Controlador_DaS_TeLa : MonoBehaviour {
 
     public void ChamarLinkDoTCE()
     {
-        Application.OpenURL("www.tce.sp.gov.br");
+		Application.OpenURL("http://www4.tce.sp.gov.br/");
     }
 }

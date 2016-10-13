@@ -147,6 +147,7 @@ public class Student : MonoBehaviour {
 			target.timer = GameManager.GetSharedInstance().timeSeeking;
 
 			myDesk.objectInPlace.ChangeTexture(target.myDesk.objectInPlace.GetTexture());
+			myDesk.objectInPlace.ResetPosition();
 			myDesk.ShowObject();
 			puff.transform.position = myDesk.objectInPlace.transform.position;
 

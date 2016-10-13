@@ -108,6 +108,7 @@ public class TileMap : MonoBehaviour {
                     Desk sDesk = go.reference.myDesk;
                     sDesk.selectedObject = j;
                     sDesk.SpawnObject();
+					sDesk.objectInPlace.owner = go.reference;
 
                     j++;
 					temp.Add(go.position);
