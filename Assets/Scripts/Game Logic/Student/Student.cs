@@ -69,6 +69,7 @@ public class Student : MonoBehaviour {
                 if(timer <= 0) {
                     status = StudentStatus.Crying;
                     GameManager.GetSharedInstance().chaos++;
+					showWrongMark();
                     myDesk.HideObject();
                 }
                 
@@ -97,12 +98,19 @@ public class Student : MonoBehaviour {
                     Influences();
                 }
                 if(timer <= 0) {
-                    status = StudentStatus.Chaotic;
+					status = StudentStatus.Chaotic;
+					showWrongMark();
                     myDesk.HideObject();
                     timer = GameManager.GetSharedInstance().stealInTime;
                 }
                 break;
         }
+	}
+
+	void showWrongMark(){
+		PlayerActionFeedback tick1 = PlayerActionFeedback.GetNewPlayerActionFeedback(myDesk.transform);
+		tick1.transform.localScale = new Vector3(0.2f, 0.2f, 1);
+		tick1.ShowWrong();
 	}
 
     void BecomeChaotic() {

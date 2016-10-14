@@ -12,6 +12,8 @@ public class ItemReferences : MonoBehaviour {
 
 	public GameObject puff;
 
+	public GameObject playerActionFeedback;
+
 	void Start(){
 		instance = this;
 	}

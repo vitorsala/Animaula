@@ -50,6 +50,9 @@ public class InteractableObject : MonoBehaviour {
 
 				RaycastHit2D[] hitInformation = Physics2D.RaycastAll(touchPosWorld2D, Camera.main.transform.forward);
 
+				bool isWrong = true;
+				Vector3 posBuffer = gameObject.transform.position;
+
 				foreach(RaycastHit2D hit in hitInformation) {
 					
 					if(target != null && hit.transform.gameObject == target) {
@@ -58,13 +61,38 @@ public class InteractableObject : MonoBehaviour {
 						owner.status = StudentStatus.Chaotic;
 						owner.timer = GameManager.GetSharedInstance().stealInTime;
 
+						PlayerActionFeedback tick1 = PlayerActionFeedback.GetNewPlayerActionFeedback(interactable.owner.myDesk.transform);
+						PlayerActionFeedback tick2 = PlayerActionFeedback.GetNewPlayerActionFeedback(owner.myDesk.transform);
+
+//						tick1.transform.localPosition = new Vector3(0, 0.4f, 0);
+						tick1.transform.localScale = new Vector3(0.2f, 0.2f, 1);
+
+//						tick2.transform.localPosition = new Vector3(0, 0.4f, 0);
+						tick2.transform.localScale = new Vector3(0.2f, 0.2f, 1);
+
+						tick1.ShowCorrect();
+						tick2.ShowCorrect();
+
 						target.SetActive(false);
 						gameObject.SetActive(false);
+
+						isWrong = false;
 
 					}
 
 					gameObject.transform.localPosition = originalPlace;
 
+				}
+
+				if(isWrong) {
+					GameObject go = new GameObject("TheEmptyOne");
+					PlayerActionFeedback tick1 = PlayerActionFeedback.GetNewPlayerActionFeedback(go.transform);
+
+					//						tick1.transform.position = transform.position;
+					go.transform.position = new Vector3(posBuffer.x, posBuffer.y - 0.4f, 0);
+					tick1.transform.localScale = new Vector3(0.09f, 0.09f, 1);
+
+					tick1.ShowWrong();
 				}
 
 				isDragging = false;
