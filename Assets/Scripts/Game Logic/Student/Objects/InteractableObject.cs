@@ -14,11 +14,86 @@ public class InteractableObject : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 	}
-	
-	// Update is called once per frame
+
+#if UNITY_EDITOR
+    void Update() {
+        if(Input.GetMouseButtonDown(0)) {
+
+            touchPosWorld = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+            Vector2 touchPosWorld2D = new Vector2(touchPosWorld.x, touchPosWorld.y);
+
+            RaycastHit2D hitInformation = Physics2D.Raycast(touchPosWorld2D, Camera.main.transform.forward);
+
+            if(hitInformation.collider != null && hitInformation.transform.gameObject == this.gameObject) {
+                isDragging = true;
+
+            }
+        }
+
+        if(Input.GetMouseButton(0) && isDragging) {
+            touchPosWorld = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+            transform.position = new Vector3(touchPosWorld.x, touchPosWorld.y, 0);
+        }
+
+        if(Input.GetMouseButtonUp(0) && isDragging) {
+            touchPosWorld = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Vector2 touchPosWorld2D = new Vector2(touchPosWorld.x, touchPosWorld.y);
+            RaycastHit2D[] hitInformation = Physics2D.RaycastAll(touchPosWorld2D, Camera.main.transform.forward);
+
+            bool isWrong = true;
+            Vector3 posBuffer = gameObject.transform.position;
+
+            foreach(RaycastHit2D hit in hitInformation) {
+
+                if(target != null && hit.transform.gameObject == target) {
+                    InteractableObject interactable = target.GetComponent<InteractableObject>();
+                    interactable.owner.status = StudentStatus.Neutral;
+                    owner.status = StudentStatus.Chaotic;
+                    owner.timer = GameManager.GetSharedInstance().stealInTime;
+
+                    PlayerActionFeedback tick1 = PlayerActionFeedback.GetNewPlayerActionFeedback(interactable.owner.myDesk.transform);
+                    PlayerActionFeedback tick2 = PlayerActionFeedback.GetNewPlayerActionFeedback(owner.myDesk.transform);
+
+                    //						tick1.transform.localPosition = new Vector3(0, 0.4f, 0);
+                    tick1.transform.localScale = new Vector3(0.2f, 0.2f, 1);
+
+                    //						tick2.transform.localPosition = new Vector3(0, 0.4f, 0);
+                    tick2.transform.localScale = new Vector3(0.2f, 0.2f, 1);
+
+                    tick1.ShowCorrect();
+                    tick2.ShowCorrect();
+
+                    target.SetActive(false);
+                    gameObject.SetActive(false);
+
+                    isWrong = false;
+
+                }
+
+                gameObject.transform.localPosition = originalPlace;
+
+            }
+
+            if(isWrong) {
+                GameObject go = new GameObject("TheEmptyOne");
+                PlayerActionFeedback tick1 = PlayerActionFeedback.GetNewPlayerActionFeedback(go.transform);
+
+                //						tick1.transform.position = transform.position;
+                go.transform.position = new Vector3(posBuffer.x, posBuffer.y - 0.4f, 0);
+                tick1.transform.localScale = new Vector3(0.09f, 0.09f, 1);
+
+                tick1.ShowWrong();
+            }
+
+            isDragging = false;
+
+        }
+    }
+#else
 	void Update () {
-		
-		if(Input.touchCount > 0){
+        if(Input.touchCount > 0){
 
 			if(Input.GetTouch(0).phase == TouchPhase.Began) {
 
@@ -100,8 +175,9 @@ public class InteractableObject : MonoBehaviour {
 			}
 		}
 	}
+#endif
 
-	public void ResetPosition(){
+    public void ResetPosition(){
 		isDragging = false;
 		transform.localPosition = originalPlace;
 
