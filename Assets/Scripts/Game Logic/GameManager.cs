@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour {
     public int score;
     public float scoreTick;
 
-    //private Student[] students;
+    private Student[] students;
     private float timeSinceLastTick;
 
     // Flow Parameters
@@ -65,8 +65,8 @@ public class GameManager : MonoBehaviour {
         chaos = 0;
         score = 0;
 
-        timeSinceLastTick = 0;
-        //students = FindObjectsOfType<Student>();
+        timeSinceLastTick = -3;
+        students = FindObjectsOfType<Student>();
 
 		bgAudioSource = AudioController.SharedInstance;
 
@@ -91,12 +91,13 @@ public class GameManager : MonoBehaviour {
 
         timeSinceLastTick += Time.deltaTime;
         if(timeSinceLastTick >= scoreTick) {
-            //foreach(Student s in students) {
-            //    if(s.status == StudentStatus.Neutral || s.status == StudentStatus.Searching) {
-            //        score++;
-            //    }
-            //}
-            score += numberOfStudents - chaos;
+            foreach(Student s in students) {
+                if(s.status == StudentStatus.Neutral || s.status == StudentStatus.Searching) {
+					s.plusOne.SetTrigger("TriggerAnimation");
+                    score++;
+                }
+            }
+//            score += numberOfStudents - chaos;
             scoreText.text = score.ToString();
             timeSinceLastTick = 0;
         }

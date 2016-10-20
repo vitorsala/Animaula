@@ -27,6 +27,7 @@ public class Desk : MonoBehaviour {
 		objectInPlace.originalPlace = go.transform.localPosition;
         objectInPlace.ChangeTexture(textureIndex);
         objectInPlace.SetAlpha(0.4f);
+//		objectInPlace.transform.localScale = new Vector3(0.2f, 0.2f, 1);
 
         objectInPlace.gameObject.SetActive(false);
 	}

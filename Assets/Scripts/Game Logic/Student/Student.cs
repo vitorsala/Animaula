@@ -34,6 +34,7 @@ public class Student : MonoBehaviour {
 
     public GameObject particles;
 
+	public Animator plusOne;
     private Animator animator;
     private float currentTime = 0;
     private bool onDelay = true;
