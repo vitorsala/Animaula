@@ -39,12 +39,13 @@ public class AudioController : MonoBehaviour {
     }
 	
     public void ChangeMusic(AudioClip clip, bool reset = true) {
+        if(bgmSource.clip == clip) return;
         float time = (reset ? 0 : bgmSource.time);
         bgmSource.clip = clip;
         bgmSource.time = time;
         bgmSource.Play();
     }
-
+    
     public void PlaySoundEffect(AudioClip sound, int channel) {
         if(channel < 0 || channel >= soundEffects.Length) return;
         AudioSource selected = soundEffects[channel];

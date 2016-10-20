@@ -5,7 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Student
-  - Props
+  - Object
+  - Stolen
   layers:
   - Default
   - TransparentFX

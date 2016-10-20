@@ -32,12 +32,6 @@ public class TileMap : MonoBehaviour {
     /// </summary>
 	[HideInInspector] public TileData[] tileInfo;
 	[HideInInspector] public Vector2[] validTiles;
-    /// <summary>
-    /// Brush reference for editor.
-    /// </summary>
-#if UNITY_EDITOR
-	[HideInInspector] public TileBrush brush;
-#endif
 
     public static TileMap GetSharedInstance() {
         return sharedInstance;
@@ -106,8 +100,7 @@ public class TileMap : MonoBehaviour {
 					go.reference.positionInClass = go.position;
 
                     Desk sDesk = go.reference.myDesk;
-                    sDesk.selectedObject = j;
-                    sDesk.SpawnObject();
+                    sDesk.SpawnObject(j);
 					sDesk.objectInPlace.owner = go.reference;
 
                     j++;
@@ -175,6 +168,12 @@ public class TileMap : MonoBehaviour {
 
 
 #if UNITY_EDITOR
+    /// <summary>
+    /// Brush reference for editor.
+    /// </summary>
+    [HideInInspector]
+    public TileBrush brush;
+
     // Tile map editor.
     void OnDrawGizmos() {
         Gizmos.color = Color.gray;

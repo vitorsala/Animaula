@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class GameManager : MonoBehaviour {
@@ -18,15 +19,24 @@ public class GameManager : MonoBehaviour {
 
     public float timer;
     public int chaos;
+    public int score;
+    public float scoreTick;
 
+    private Student[] students;
+    private float timeSinceLastTick;
+
+    // Flow Parameters
     public int enterMediumState = 4;
     public int enterHeavyState = 8;
     public float timeSeeking = 0;
     public float stealInTime = 0;
+
     public int numberOfStudents = 12;
 
+    // UI Control
     public GameObject ganhou;
     public GameObject perdeu;
+    public Text scoreText;
 
     // Audios
     public AudioClip lightBGM;
@@ -53,6 +63,10 @@ public class GameManager : MonoBehaviour {
         timerBar.duration = timer;
         state = GameState.Light;
         chaos = 0;
+        score = 0;
+
+        timeSinceLastTick = 0;
+        students = FindObjectsOfType<Student>();
 
 		bgAudioSource = AudioController.SharedInstance;
 
@@ -73,6 +87,17 @@ public class GameManager : MonoBehaviour {
             // Vencer
             state = GameState.Finished;
             ganhou.SetActive(true);
+        }
+
+        timeSinceLastTick += Time.deltaTime;
+        if(timeSinceLastTick >= scoreTick) {
+            foreach(Student s in students) {
+                if(s.status == StudentStatus.Neutral || s.status == StudentStatus.Searching) {
+                    score++;
+                }
+            }
+            scoreText.text = score.ToString();
+            timeSinceLastTick = 0;
         }
 
         switch(state) {

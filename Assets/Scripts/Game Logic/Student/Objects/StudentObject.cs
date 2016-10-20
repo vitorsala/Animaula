@@ -2,18 +2,15 @@
 using UnityEngine.EventSystems;
 using System.Collections;
 
-public class InteractableObject : MonoBehaviour {
-	
-	public bool isDragging = false;
-	private Vector3 touchPosWorld;
-	public GameObject target;
+public class StudentObject : MonoBehaviour {
 
-	public Student owner;
-	public Vector3 originalPlace = Vector3.zero;
+    public bool isDragging = false;
+    private Vector3 touchPosWorld;
+    public GameObject target;
 
-	// Use this for initialization
-	void Start () {
-	}
+    public Student owner;
+    public Vector3 originalPlace = Vector3.zero;
+
 
 #if UNITY_EDITOR
     void Update() {
@@ -25,7 +22,7 @@ public class InteractableObject : MonoBehaviour {
 
             RaycastHit2D hitInformation = Physics2D.Raycast(touchPosWorld2D, Camera.main.transform.forward);
 
-            if(hitInformation.collider != null && hitInformation.transform.gameObject == this.gameObject) {
+            if(hitInformation.collider != null && hitInformation.transform.gameObject.tag == "Stolen" && hitInformation.transform.gameObject == this.gameObject) {
                 isDragging = true;
 
             }
@@ -48,7 +45,7 @@ public class InteractableObject : MonoBehaviour {
             foreach(RaycastHit2D hit in hitInformation) {
 
                 if(target != null && hit.transform.gameObject == target) {
-                    InteractableObject interactable = target.GetComponent<InteractableObject>();
+                    StudentObject interactable = target.GetComponent<StudentObject>();
                     interactable.owner.status = StudentStatus.Neutral;
                     owner.status = StudentStatus.Chaotic;
                     owner.timer = GameManager.GetSharedInstance().stealInTime;
@@ -92,7 +89,7 @@ public class InteractableObject : MonoBehaviour {
         }
     }
 #else
-	void Update () {
+    void Update () {
         if(Input.touchCount > 0){
 
 			if(Input.GetTouch(0).phase == TouchPhase.Began) {
@@ -103,7 +100,7 @@ public class InteractableObject : MonoBehaviour {
 
 				RaycastHit2D hitInformation = Physics2D.Raycast(touchPosWorld2D, Camera.main.transform.forward);
 
-				if(hitInformation.collider != null && hitInformation.transform.gameObject == this.gameObject) {
+				if(hitInformation.collider != null && hitInformation.transform.gameObject.tag == "Stolen" && hitInformation.transform.gameObject == this.gameObject) {
 					isDragging = true;
 
 				}
@@ -131,7 +128,7 @@ public class InteractableObject : MonoBehaviour {
 				foreach(RaycastHit2D hit in hitInformation) {
 					
 					if(target != null && hit.transform.gameObject == target) {
-						InteractableObject interactable = target.GetComponent<InteractableObject>();
+						StudentObject interactable = target.GetComponent<StudentObject>();
 						interactable.owner.status = StudentStatus.Neutral;
 						owner.status = StudentStatus.Chaotic;
 						owner.timer = GameManager.GetSharedInstance().stealInTime;
@@ -176,28 +173,29 @@ public class InteractableObject : MonoBehaviour {
 		}
 	}
 #endif
+    public void SetAlpha(float value) {
+        SpriteRenderer objSR = gameObject.GetComponent<SpriteRenderer>();
+        objSR.color = new Color(1, 1, 1, value);
+    }
 
-    public void ResetPosition(){
-		isDragging = false;
-		transform.localPosition = originalPlace;
+    public void ResetPosition() {
+        isDragging = false;
+        transform.localPosition = originalPlace;
 
-	}
+    }
 
-	void CheckIfSelected(Touch t){
+    public void ChangeTexture(int index) {
+        Texture2D texture = ItemReferences.GetSharedInstance().itens[index];
+        Sprite item = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
+        SpriteRenderer objSR = gameObject.GetComponent<SpriteRenderer>();
+        objSR.sprite = item;
+    }
+    
+    public void ChangeTexture(Texture2D newTexture) {
+        GetComponent<SpriteRenderer>().sprite = Sprite.Create(newTexture, new Rect(0, 0, newTexture.width, newTexture.height), new Vector2(0.5f, 0.5f));
+    }
 
-//		Vector2 mPos = t.position;
-//		Ray2D ray = new Ray2D();
-//		Ray ray = HandleUtility.GUIPointToWorldRay(mPos);
-//		Vector2 pos = map.transform.InverseTransformPoint(ray.origin);
-	}
-
-	public void ChangeTexture(Texture2D newTexture){
-		GetComponent<SpriteRenderer>().sprite = Sprite.Create(newTexture, new Rect(0, 0, newTexture.width, newTexture.height), new Vector2(0.5f, 0.5f));
-	}
-
-	public Texture2D GetTexture(){
-		return GetComponent<SpriteRenderer>().sprite.texture;
-	}
-
-
+    public Texture2D GetTexture() {
+        return GetComponent<SpriteRenderer>().sprite.texture;
+    }
 }

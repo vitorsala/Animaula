@@ -17,7 +17,7 @@ public enum StudentType{
 
 public class Student : MonoBehaviour {
 	
-	public InteractableObject holding;
+	//public InteractableObject holding;
 
 	public StudentType type;
 
@@ -31,6 +31,8 @@ public class Student : MonoBehaviour {
 	public Desk myDesk;
 
     public float timer = 0;
+
+    public GameObject particles;
 
     private Animator animator;
     private float currentTime = 0;
@@ -66,7 +68,9 @@ public class Student : MonoBehaviour {
 
                 break;
             case StudentStatus.Searching:
+                particles.SetActive(true);
                 if(timer <= 0) {
+                    particles.SetActive(false);
                     status = StudentStatus.Crying;
                     GameManager.GetSharedInstance().chaos++;
 					showWrongMark();
@@ -157,6 +161,9 @@ public class Student : MonoBehaviour {
 			myDesk.objectInPlace.ChangeTexture(target.myDesk.objectInPlace.GetTexture());
 			myDesk.objectInPlace.ResetPosition();
 			myDesk.ShowObject();
+            myDesk.objectInPlace.tag = "Stolen";
+            myDesk.objectInPlace.SetAlpha(1f);
+
 			puff.transform.position = myDesk.objectInPlace.transform.position;
 
 			target.myDesk.ShowObject(true);
