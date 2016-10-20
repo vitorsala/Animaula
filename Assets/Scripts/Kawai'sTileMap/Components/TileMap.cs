@@ -83,7 +83,6 @@ public class TileMap : MonoBehaviour {
 			}
 		}
 		return validStudents.ToArray();
-
 	}
 
 	public void UpdateMatrix() {

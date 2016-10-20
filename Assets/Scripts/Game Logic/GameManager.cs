@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour {
     public int score;
     public float scoreTick;
 
-    private Student[] students;
+    //private Student[] students;
     private float timeSinceLastTick;
 
     // Flow Parameters
@@ -66,7 +66,7 @@ public class GameManager : MonoBehaviour {
         score = 0;
 
         timeSinceLastTick = 0;
-        students = FindObjectsOfType<Student>();
+        //students = FindObjectsOfType<Student>();
 
 		bgAudioSource = AudioController.SharedInstance;
 
@@ -91,11 +91,12 @@ public class GameManager : MonoBehaviour {
 
         timeSinceLastTick += Time.deltaTime;
         if(timeSinceLastTick >= scoreTick) {
-            foreach(Student s in students) {
-                if(s.status == StudentStatus.Neutral || s.status == StudentStatus.Searching) {
-                    score++;
-                }
-            }
+            //foreach(Student s in students) {
+            //    if(s.status == StudentStatus.Neutral || s.status == StudentStatus.Searching) {
+            //        score++;
+            //    }
+            //}
+            score += numberOfStudents - chaos;
             scoreText.text = score.ToString();
             timeSinceLastTick = 0;
         }
@@ -119,6 +120,18 @@ public class GameManager : MonoBehaviour {
                 break;
 
             case GameState.Finished:
+                GameObject go;
+                if(ganhou.activeSelf == true) {
+                    go = ganhou.transform.Find("score final").gameObject;
+                }
+                else if(perdeu.activeSelf == true) {
+                    go = perdeu.transform.Find("score final").gameObject;
+                }
+                else {
+                    return;
+                }
+                Text finalScoreText = go.GetComponent<Text>();
+                finalScoreText.text = scoreText.text;
                 Time.timeScale = 0f;
                 break;
         }

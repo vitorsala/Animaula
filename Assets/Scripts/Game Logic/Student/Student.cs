@@ -62,6 +62,7 @@ public class Student : MonoBehaviour {
 
         switch(status) {
             case StudentStatus.Neutral:
+                particles.SetActive(false);
                 if(bagunca >= threshold) {
                     BecomeChaotic();
                 }
@@ -129,21 +130,20 @@ public class Student : MonoBehaviour {
 
 		Vector2[] positions = new Vector2[]{
 			positionInClass + Vector2.left * 2,
-			positionInClass + Vector2.down,
+			positionInClass + Vector2.down * 2,
 			positionInClass + Vector2.right * 2,
-			positionInClass + Vector2.up,
+			positionInClass + Vector2.up * 2,
 		};
 
 		TileData td;
 		foreach(Vector2 pos in positions) {
-			td = map.GetTileData(pos);
-			if(pos.x >= 0 && pos.x < map.size.x
-				&& pos.y >= 0 && pos.y < map.size.y
-				&& td.property == TileProperties.Student 
-				&& td.reference.status == StudentStatus.Neutral) {
-
-				td.reference.bagunca++;
-			}
+            if(pos.x >= 0 && pos.x < map.size.x && pos.y >= 0 && pos.y < map.size.y) {
+                td = map.GetTileData(pos);
+                if(td.property == TileProperties.Student
+                    && td.reference.status == StudentStatus.Neutral) {
+                    td.reference.bagunca++;
+                }
+            }
 		}
 	}
 
