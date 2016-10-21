@@ -65,14 +65,29 @@ public class GameManager : MonoBehaviour {
         chaos = 0;
         score = 0;
 
-        timeSinceLastTick = -3;
+        timeSinceLastTick = -2.9f;
         students = FindObjectsOfType<Student>();
 
 		bgAudioSource = AudioController.SharedInstance;
 
-        bgAudioSource.ChangeMusic(lightBGM);
+		bgAudioSource.ChangeMusic(lightBGM);
+		bgAudioSource.ChangeBGMVolume(1f);
         bgAudioSource.PlaySoundEffect(StartingSound, 0);
     }
+
+
+	private void IncrementScore(){
+		foreach(Student s in students) {
+			if(s.status == StudentStatus.Neutral || s.status == StudentStatus.Searching) {
+				s.plusOne.SetTrigger("TriggerAnimation");
+				score++;
+			}
+		}
+		//            score += numberOfStudents - chaos;
+		scoreText.text = score.ToString();
+		timeSinceLastTick = 0;
+	}
+
 
 	// Update is called once per frame
 	void Update () {
@@ -85,21 +100,14 @@ public class GameManager : MonoBehaviour {
         }
         else if(chaos < numberOfStudents && timer <= 0) {
             // Vencer
+			//IncrementScore();
             state = GameState.Finished;
             ganhou.SetActive(true);
         }
 
         timeSinceLastTick += Time.deltaTime;
         if(timeSinceLastTick >= scoreTick) {
-            foreach(Student s in students) {
-                if(s.status == StudentStatus.Neutral || s.status == StudentStatus.Searching) {
-					s.plusOne.SetTrigger("TriggerAnimation");
-                    score++;
-                }
-            }
-//            score += numberOfStudents - chaos;
-            scoreText.text = score.ToString();
-            timeSinceLastTick = 0;
+			IncrementScore();
         }
 
         switch(state) {
@@ -111,7 +119,8 @@ public class GameManager : MonoBehaviour {
                 break;
             case GameState.Medium:
                 if(chaos >= enterHeavyState) {
-                    bgAudioSource.ChangeMusic(heavyBGM);
+					bgAudioSource.ChangeMusic(heavyBGM);
+					bgAudioSource.ChangeBGMVolume(0.5f);
                     state = GameState.Heavy;
                 }
                 break;
@@ -120,21 +129,27 @@ public class GameManager : MonoBehaviour {
 
                 break;
 
-            case GameState.Finished:
-                GameObject go;
-                if(ganhou.activeSelf == true) {
-                    go = ganhou.transform.Find("score final").gameObject;
-                }
-                else if(perdeu.activeSelf == true) {
-                    go = perdeu.transform.Find("score final").gameObject;
-                }
-                else {
-                    return;
-                }
-                Text finalScoreText = go.GetComponent<Text>();
-                finalScoreText.text = scoreText.text;
-                Time.timeScale = 0f;
-                break;
+		case GameState.Finished:
+			Time.timeScale = 0f;
+
+			GameObject temp = (ganhou.activeSelf == true ? ganhou : perdeu);
+
+
+			Text finalScoreText = temp.transform.Find("score final").gameObject.GetComponent<Text>();
+			Text highScoreText = temp.transform.Find("Highscore value").gameObject.GetComponent<Text>();
+			Text recorde = temp.transform.Find("Recorde").gameObject.GetComponent<Text>();
+
+			finalScoreText.text = scoreText.text;
+			int hs = PlayerPrefs.GetInt(Constants.HIGH_SCORE_KEY);
+			if(score > hs) {
+				PlayerPrefs.SetInt(Constants.HIGH_SCORE_KEY, score);
+				recorde.enabled = true;
+				hs = score;
+			}
+
+			highScoreText.text = hs.ToString();
+
+            break;
         }
 	}
 }

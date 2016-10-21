@@ -6,7 +6,8 @@ public enum StudentStatus{
 	Chaotic, 		// 1
 	ChaoticBusy, 	// 2
 	Searching, 		// 3
-	Crying			// 4
+	Crying,			// 4
+	NeutralImmune
 }
 
 public enum StudentType{
@@ -110,6 +111,11 @@ public class Student : MonoBehaviour {
                     timer = GameManager.GetSharedInstance().stealInTime;
                 }
                 break;
+			case StudentStatus.NeutralImmune:
+				if(timer <= 0) {
+					status = StudentStatus.Neutral;
+				}
+				break;
         }
 	}
 
@@ -162,8 +168,8 @@ public class Student : MonoBehaviour {
 			myDesk.objectInPlace.ChangeTexture(target.myDesk.objectInPlace.GetTexture());
 			myDesk.objectInPlace.ResetPosition();
 			myDesk.ShowObject();
-            myDesk.objectInPlace.tag = "Stolen";
-            myDesk.objectInPlace.SetAlpha(1f);
+			myDesk.objectInPlace.tag = "Stolen";
+			myDesk.objectInPlace.SetAlpha(1f);
 
 			puff.transform.position = myDesk.objectInPlace.transform.position;
 
@@ -173,6 +179,9 @@ public class Student : MonoBehaviour {
 
 			this.status = StudentStatus.ChaoticBusy;
 			this.timer = target.timer;
+		}
+		else {
+			this.timer = 0.5f;
 		}
 	}
 }

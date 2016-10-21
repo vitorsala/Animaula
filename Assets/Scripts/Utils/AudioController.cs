@@ -37,7 +37,11 @@ public class AudioController : MonoBehaviour {
 	void Start () {
         DontDestroyOnLoad(this.gameObject);
     }
-	
+
+	public void ChangeBGMVolume(float volume){
+		bgmSource.volume = volume;
+	}
+
     public void ChangeMusic(AudioClip clip, bool reset = true) {
         if(bgmSource.clip == clip) return;
         float time = (reset ? 0 : bgmSource.time);
