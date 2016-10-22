@@ -91,7 +91,6 @@ public class Student : MonoBehaviour {
                     GameManager.GetSharedInstance().chaos--;
                     BecomeChaotic();
                 }
-
                 break;
             case StudentStatus.Chaotic:
                 if(timer <= 0) {
@@ -107,6 +106,7 @@ public class Student : MonoBehaviour {
                 if(timer <= 0) {
 					status = StudentStatus.Chaotic;
 					showWrongMark();
+                    myDesk.objectInPlace.ResetPosition();
                     myDesk.HideObject();
                     timer = GameManager.GetSharedInstance().stealInTime;
                 }
@@ -159,14 +159,13 @@ public class Student : MonoBehaviour {
 		Student[] possibleTargets = map.GetValidStudents();
 		if(possibleTargets.Length > 0) {
 			
-			GameObject puff = Instantiate(ItemReferences.GetSharedInstance().puff);
+			GameObject puff = Instantiate(SharedResources.GetSharedInstance().puff);
 
 			Student target = possibleTargets[Random.Range(0, possibleTargets.Length - 1)];
 			target.status = StudentStatus.Searching;
 			target.timer = GameManager.GetSharedInstance().timeSeeking;
 
 			myDesk.objectInPlace.ChangeTexture(target.myDesk.objectInPlace.GetTexture());
-			myDesk.objectInPlace.ResetPosition();
 			myDesk.ShowObject();
 			myDesk.objectInPlace.tag = "Stolen";
 			myDesk.objectInPlace.SetAlpha(1f);

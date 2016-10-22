@@ -119,8 +119,8 @@ public class GameManager : MonoBehaviour {
                 break;
             case GameState.Medium:
                 if(chaos >= enterHeavyState) {
-					bgAudioSource.ChangeMusic(heavyBGM);
-					bgAudioSource.ChangeBGMVolume(0.5f);
+					bgAudioSource.ChangeMusic(heavyBGM, false);
+					//bgAudioSource.ChangeBGMVolume(0.5f);
                     state = GameState.Heavy;
                 }
                 break;
