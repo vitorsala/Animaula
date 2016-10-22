@@ -6,7 +6,8 @@ public class PuffComponent : MonoBehaviour {
     public AudioClip soundEffect;
 
     void Start() {
-        AudioController.SharedInstance.PlaySoundEffect(soundEffect, 1);
+        if(soundEffect != null)
+            AudioController.SharedInstance.PlaySoundEffect(soundEffect, 1);
     }
 	
 	// Update is called once per frame
