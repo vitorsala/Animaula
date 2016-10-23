@@ -50,9 +50,6 @@ public class Student : MonoBehaviour {
         animator = GetComponent<Animator>();
         animator.SetInteger("type", (int)type);
 
-        if(bagunca == 0) {
-            bagunca = LevelManager.sharedInstance.level / 2;
-        }
     }
 
 	void Update(){
@@ -69,6 +66,8 @@ public class Student : MonoBehaviour {
         switch(status) {
             case StudentStatus.Neutral:
                 particles.SetActive(false);
+                currentTime = 0;
+                timer = GameManager.GetSharedInstance().stealInTime;
                 if(bagunca >= threshold) {
                     BecomeChaotic();
                 }
@@ -76,32 +75,47 @@ public class Student : MonoBehaviour {
                 break;
             case StudentStatus.Searching:
                 particles.SetActive(true);
+
+                if(GameManager.GetSharedInstance().chaos == GameManager.GetSharedInstance().numberOfStudents - 1 && currentTime >= activation) {
+                    currentTime = 0;
+                    bagunca++;
+                }
+
                 if(timer <= 0) {
                     particles.SetActive(false);
                     status = StudentStatus.Crying;
+                    timer = activation;
                     GameManager.GetSharedInstance().chaos++;
 					showWrongMark();
                     myDesk.HideObject();
                 }
                 
+
                 break;
             case StudentStatus.Crying:
+                if(timer <= 0) {
+                    Influences();
+                    timer = activation;
+                }
+
                 if(currentTime >= activation) {
                     currentTime = activation/2;
                     bagunca++;
-                    Influences();
                 }
+
                 if(bagunca >= threshold) {
                     GameManager.GetSharedInstance().chaos--;
                     BecomeChaotic();
                 }
                 break;
+
             case StudentStatus.Chaotic:
                 if(timer <= 0) {
                     Steal();
                     currentTime = 0;
                 }
                 break;
+
             case StudentStatus.ChaoticBusy:
                 if(currentTime >= activation) {
                     currentTime = 0;
@@ -115,6 +129,7 @@ public class Student : MonoBehaviour {
                     timer = GameManager.GetSharedInstance().stealInTime;
                 }
                 break;
+
 			case StudentStatus.NeutralImmune:
 				if(timer <= 0) {
 					status = StudentStatus.Neutral;
@@ -168,17 +183,17 @@ public class Student : MonoBehaviour {
 			Student target = possibleTargets[Random.Range(0, possibleTargets.Length - 1)];
 			target.status = StudentStatus.Searching;
 			target.timer = GameManager.GetSharedInstance().timeSeeking;
+            target.myDesk.ShowObject(true);
 
-			myDesk.objectInPlace.ChangeTexture(target.myDesk.objectInPlace.GetTexture());
-			myDesk.ShowObject();
-			myDesk.objectInPlace.tag = "Stolen";
-			myDesk.objectInPlace.SetAlpha(1f);
+            myDesk.objectInPlace.ChangeTexture(target.myDesk.objectInPlace.GetTexture());
+            myDesk.ShowObject();
+            myDesk.objectInPlace.tag = "Stolen";
+            myDesk.objectInPlace.SetAlpha(1f);
+            myDesk.objectInPlace.target = target.myDesk.objectInPlace.gameObject;
 
-			puff.transform.position = myDesk.objectInPlace.transform.position;
+            puff.transform.position = myDesk.objectInPlace.transform.position;
 
-			target.myDesk.ShowObject(true);
 
-			myDesk.objectInPlace.target = target.myDesk.objectInPlace.gameObject;
 
 			this.status = StudentStatus.ChaoticBusy;
 			this.timer = target.timer;

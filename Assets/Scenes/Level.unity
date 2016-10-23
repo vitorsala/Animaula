@@ -724,7 +724,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timerBar: {fileID: 532373409}
-  classRoomTime: 5
+  classRoomTime: 60
   chaos: 0
   score: 0
   scoreTick: 5

@@ -78,18 +78,18 @@ public class AudioController : MonoBehaviour {
         bgmSource.Play();
     }
 
-    public void PlaySoundEffect(AudioClip sound, int channel, float volume = 1f) {
+    public void PlaySoundEffect(AudioClip sound, int channel, float startingTime = 0, float volume = 1f) {
         if(channel < 0 || channel >= soundEffects.Length) {
             Debug.LogError("Invalid channel number.");
             return;
         }
         if(_muted) return;
-
         AudioSource selected = soundEffects[channel];
+
         selected.clip = sound;
-        selected.time = 0;
-        selected.volume = volume;
         selected.Play();
+        selected.time = startingTime;
+        selected.volume = volume;
     }
 
     public void PlayUISoundEffect(AudioClip sound) {

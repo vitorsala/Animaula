@@ -164,7 +164,6 @@ public class GameManager : MonoBehaviour {
                 break;
 
             case GameState.Heavy:
-
                 break;
 
             case GameState.ChangingLevel:
@@ -180,9 +179,9 @@ public class GameManager : MonoBehaviour {
                 break;
 
 		    case GameState.Finished:
-			    Time.timeScale = 0f;
+                timer += Time.deltaTime;
 
-			    GameObject temp = (ganhou.activeSelf == true ? ganhou : perdeu);
+                GameObject temp = (ganhou.activeSelf == true ? ganhou : perdeu);
 
 			    Text finalScoreText = temp.transform.Find("score final").gameObject.GetComponent<Text>();
 			    Text highScoreText = temp.transform.Find("Highscore value").gameObject.GetComponent<Text>();
