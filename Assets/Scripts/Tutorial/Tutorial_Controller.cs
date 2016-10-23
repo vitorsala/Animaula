@@ -10,6 +10,7 @@ public class Tutorial_Controller : MonoBehaviour {
     public Animator glove;
     public Animator student2;
     public Text text;
+    public Button skipBtn;
     public GameObject board_object;
 
     public GameObject puff;
@@ -21,7 +22,7 @@ public class Tutorial_Controller : MonoBehaviour {
                              ,"UM DOS ALUNOS FICOU VERMELHO!\nELE DEVE ESTAR QUERENDO APRONTAR!"
                              ,"ELE PEGOU UM OBJETO DO OUTRO ALUNO!"
                              ,"VAMOS DEVOLVER O OBJETO PARA O DONO!"
-                             ,"AGORA VAMOS A AULA!"};
+                             ,"O ALUNO VOLTOU A FICAR FELIZ!\nAGORA VAMOS A AULA!"};
 
     public int text_stage = 0;
     private float time = 0;
@@ -71,6 +72,7 @@ public class Tutorial_Controller : MonoBehaviour {
             if(glove.GetCurrentAnimatorStateInfo(0).IsName("Repeat_Animation")) {
                 missingItem.SetActive(false);
                 glove.gameObject.SetActive(false);
+                student2.SetInteger("status", 0);
                 AnimationBoardChange(true);
                 ChangeText(3);
             }
