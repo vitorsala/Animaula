@@ -724,7 +724,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timerBar: {fileID: 532373409}
-  classRoomTime: 60
+  classRoomTime: 5
   chaos: 0
   score: 0
   scoreTick: 5
@@ -737,7 +737,7 @@ MonoBehaviour:
   ganhou: {fileID: 1699689962}
   perdeu: {fileID: 1007625983}
   scoreText: {fileID: 149671657}
-  lightBGM: {fileID: 8300000, guid: fd1ece65d60ff6a478042525391275cc, type: 3}
+  lightBGM: {fileID: 8300000, guid: bd0ffce70ed7b6442b693ba4368aa2f3, type: 3}
   mediumBGM: {fileID: 8300000, guid: 17a3603eee1b6944b88c604b209c2ed8, type: 3}
   heavyBGM: {fileID: 8300000, guid: 4f4499ea53d99c64f845c2b92ad103da, type: 3}
   StartingSound: {fileID: 8300000, guid: d64ecf4c91459be4b819a56a865146df, type: 3}
@@ -2420,7 +2420,6 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 224: {fileID: 384438280}
-  - 114: {fileID: 384438282}
   - 114: {fileID: 384438281}
   m_Layer: 5
   m_Name: ButtonActionsMannager
@@ -2459,17 +2458,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pauseMenu: {fileID: 1018585800}
---- !u!114 &384438282
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 384438279}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 81a7b659505b846f5aa9af49948c56e9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &388791108
 Prefab:
   m_ObjectHideFlags: 0
@@ -2931,7 +2919,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 384438281}
-        m_MethodName: Button_Resume
+        m_MethodName: ResumeButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7211,8 +7199,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 384438282}
-        m_MethodName: CarregarTela
+      - m_Target: {fileID: 384438281}
+        m_MethodName: HomeButton
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7333,9 +7321,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 384438282}
-        m_MethodName: CarregarTela
-        m_Mode: 5
+      - m_Target: {fileID: 384438281}
+        m_MethodName: RestartButon
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -8533,9 +8521,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 384438282}
-        m_MethodName: CarregarTela
-        m_Mode: 5
+      - m_Target: {fileID: 384438281}
+        m_MethodName: RestartButon
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -8992,6 +8980,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1f1aab432cf34b4ebd5fd78e65337ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  openDoorSFX: {fileID: 8300000, guid: a71f548c16126f04faaa37ec06966924, type: 3}
+  closeDoorSFX: {fileID: 8300000, guid: 429409f192546134595e587f8e3d4016, type: 3}
 --- !u!1001 &1587154789
 Prefab:
   m_ObjectHideFlags: 0
@@ -9293,9 +9283,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 384438282}
-        m_MethodName: CarregarTela
-        m_Mode: 5
+      - m_Target: {fileID: 384438281}
+        m_MethodName: RestartButon
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -9416,7 +9406,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 384438281}
-        m_MethodName: Button_NextLevel
+        m_MethodName: NextLevelButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -9615,8 +9605,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 384438282}
-        m_MethodName: CarregarTela
+      - m_Target: {fileID: 384438281}
+        m_MethodName: HomeButton
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -9816,7 +9806,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 384438281}
-        m_MethodName: Button_Pause
+        m_MethodName: PauseButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -10632,8 +10622,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 384438282}
-        m_MethodName: CarregarTela
+      - m_Target: {fileID: 384438281}
+        m_MethodName: HomeButton
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

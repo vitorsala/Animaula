@@ -22,6 +22,12 @@ public class GameManager : MonoBehaviour {
     public int score;
     public float scoreTick;
 
+    // Level Related
+    private int childsToCorrupt;
+    private float timeToCorrupt;
+    private float corruptTimer;
+
+    // General Parameters
     private float timer;
     private Student[] students;
     private float timeSinceLastTick;
@@ -71,7 +77,11 @@ public class GameManager : MonoBehaviour {
         timeSinceLastTick = -2.9f;
         students = FindObjectsOfType<Student>();
 
-		bgAudioSource = AudioController.SharedInstance;
+        childsToCorrupt = (LevelManager.sharedInstance.level - 1) / 2;
+        timeToCorrupt = timer / (childsToCorrupt + 1);
+        corruptTimer = timeToCorrupt;
+
+        bgAudioSource = AudioController.SharedInstance;
 
 		bgAudioSource.ChangeMusic(lightBGM);
 		bgAudioSource.ChangeBGMVolume(1f);
@@ -82,7 +92,6 @@ public class GameManager : MonoBehaviour {
         Image im = go.GetComponent<Image>();
         SharedResources.GetSharedInstance();
         im.sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f,0.5f));
-
     }
 
 	private void IncrementScore(){
@@ -96,8 +105,7 @@ public class GameManager : MonoBehaviour {
 		scoreText.text = score.ToString();
 		timeSinceLastTick = 0;
 	}
-
-
+    
 	// Update is called once per frame
 	void Update () {
         timer -= Time.deltaTime;
@@ -117,13 +125,28 @@ public class GameManager : MonoBehaviour {
                 ganhou.SetActive(true);
             }
         }
-        else {
+        else { // Evita que o jogador continue ganhando pontos após o término do jogo
             timeSinceLastTick += Time.deltaTime;
             if(timeSinceLastTick >= scoreTick) {
                 IncrementScore();
             }
+            if(childsToCorrupt > 0) {
+                corruptTimer -= Time.deltaTime;
+                if(corruptTimer <= 0) {
+                    int selected = Random.Range(0, students.Length - 1);
+                    int iterator = selected;
+                    while(students[iterator].status != StudentStatus.Neutral) {
+                        iterator = (iterator + 1) % students.Length;
+                        if(iterator == selected) break;
+                    }
+                    if(students[iterator].status == StudentStatus.Neutral) {
+                        students[iterator].bagunca = students[iterator].threshold;
+                    }
+                    corruptTimer = timeToCorrupt;
+                    childsToCorrupt--;
+                }
+            }
         }
-
 
         switch(state) {
             case GameState.Light:
@@ -167,7 +190,8 @@ public class GameManager : MonoBehaviour {
 
 			    finalScoreText.text = scoreText.text;
 			    int hs = PlayerPrefs.GetInt(Constants.HIGH_SCORE_KEY);
-			    if(score > hs) {
+
+			    if(score > hs) { // Highscore
 				    PlayerPrefs.SetInt(Constants.HIGH_SCORE_KEY, score);
 				    recorde.enabled = true;
 				    hs = score;
@@ -177,4 +201,8 @@ public class GameManager : MonoBehaviour {
                 break;
         }
 	}
+
+    public Student[] GetStudents() {
+        return students;
+    }
 }

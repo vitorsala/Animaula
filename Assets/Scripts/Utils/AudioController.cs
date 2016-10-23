@@ -1,5 +1,5 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿using System.Collections;
+using UnityEngine;
 
 public class AudioController : MonoBehaviour {
     public static AudioController _instance;
@@ -13,7 +13,8 @@ public class AudioController : MonoBehaviour {
     private AudioSource uiSoundEffects;
     private AudioSource[] soundEffects;
 
-    [Range(1,8)] public int numberOfChannels = 1;
+    [Range(1, 8)]
+    public int numberOfChannels = 1;
 
     private bool _muted = false;
     public bool muted {
@@ -51,6 +52,10 @@ public class AudioController : MonoBehaviour {
         }
     }
 
+    void Start() {
+        DontDestroyOnLoad(this.gameObject);
+    }
+
     public void Mute() {
         _muted = true;
         bgmSource.mute = true;
@@ -61,14 +66,9 @@ public class AudioController : MonoBehaviour {
         bgmSource.mute = false;
     }
 
-    // Use this for initialization
-    void Start () {
-        DontDestroyOnLoad(this.gameObject);
+    public void ChangeBGMVolume(float volume) {
+        bgmSource.volume = volume;
     }
-
-	public void ChangeBGMVolume(float volume){
-		bgmSource.volume = volume;
-	}
 
     public void ChangeMusic(AudioClip clip, bool reset = true) {
         if(bgmSource.clip == clip) return;
@@ -77,7 +77,7 @@ public class AudioController : MonoBehaviour {
         bgmSource.time = time;
         bgmSource.Play();
     }
-    
+
     public void PlaySoundEffect(AudioClip sound, int channel, float volume = 1f) {
         if(channel < 0 || channel >= soundEffects.Length) {
             Debug.LogError("Invalid channel number.");
@@ -92,7 +92,7 @@ public class AudioController : MonoBehaviour {
         selected.Play();
     }
 
-    public void PlayeUISoundEffect(AudioClip sound) {
+    public void PlayUISoundEffect(AudioClip sound) {
         if(_muted) return;
         uiSoundEffects.clip = sound;
         uiSoundEffects.time = 0;

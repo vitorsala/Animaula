@@ -44,13 +44,15 @@ public class Student : MonoBehaviour {
     void Awake () {
 		status = StudentStatus.Neutral;
 
-        LevelManager lm = LevelManager.sharedInstance;
-        bagunca = 0;
 	}
 
     void Start() {
         animator = GetComponent<Animator>();
         animator.SetInteger("type", (int)type);
+
+        if(bagunca == 0) {
+            bagunca = LevelManager.sharedInstance.level / 2;
+        }
     }
 
 	void Update(){

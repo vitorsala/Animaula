@@ -16,10 +16,12 @@ public class PlayerInput : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         ProcessInput();
+        // Se eu estou arrastando algo, esse algo tem que crescer e sair de baixo do meu dedo.
         if(isDragging && draggingObject != null) {
             draggingObject.Grow();
             draggingObject.gameObject.transform.position = new Vector3(touchPosWorld.x, touchPosWorld.y + 0.7f, 0);
         }
+        // Mas ele tem que voltar a ser algo normal caso eu deixe de arrastar algo.
         else if(!isDragging && draggingObject != null) {
             draggingObject.ResetPosition();
             draggingObject.ResetSize();
@@ -51,9 +53,8 @@ public class PlayerInput : MonoBehaviour {
 
         bool isWrong = true;
         Vector3 posBuffer = draggingObject.gameObject.transform.position;
-
+        // Verificação se eu soltei o objeto em cima do lugar que eu deveria soltar.
         foreach(RaycastHit2D hit in hitInformation) {
-
             if(draggingObject.target != null && hit.transform.gameObject == draggingObject.target) {
                 StudentObject interactable = draggingObject.target.GetComponent<StudentObject>();
                 interactable.owner.status = StudentStatus.Neutral;
@@ -89,6 +90,7 @@ public class PlayerInput : MonoBehaviour {
 
             tick1.ShowWrong();
         }
+
         isDragging = false;
     }
 
@@ -108,21 +110,21 @@ public class PlayerInput : MonoBehaviour {
     }
 
 #else
-	void ProcessInput(){
-		if(Input.touchCount > 0) {
-			if(Input.GetTouch(0).phase == TouchPhase.Began) {
-				TouchesBegin(Input.GetTouch(0).position);
-			}
+    void ProcessInput() {
+        if(Input.touchCount > 0) {
+            if(Input.GetTouch(0).phase == TouchPhase.Began) {
+                TouchesBegin(Input.GetTouch(0).position);
+            }
 
-			if(Input.GetTouch(0).phase == TouchPhase.Moved && isDragging) {
-				TouchesMoved(Input.GetTouch(0).position);
-			}
+            if(Input.GetTouch(0).phase == TouchPhase.Moved && isDragging) {
+                TouchesMoved(Input.GetTouch(0).position);
+            }
 
-			if(Input.GetTouch(0).phase == TouchPhase.Ended && isDragging) {
-				TouchesEnded(Input.GetTouch(0).position);
-			}
-		}
-	}
+            if(Input.GetTouch(0).phase == TouchPhase.Ended && isDragging) {
+                TouchesEnded(Input.GetTouch(0).position);
+            }
+        }
+    }
 #endif
 
 }

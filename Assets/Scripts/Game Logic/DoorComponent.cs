@@ -3,6 +3,9 @@ using System.Collections;
 
 public class DoorComponent : MonoBehaviour {
 
+    public AudioClip openDoorSFX;
+    public AudioClip closeDoorSFX;
+
     Animator animator;
     bool didSentOpenMsg = false;
     bool didSentCloseMsg = false;
@@ -17,10 +20,12 @@ public class DoorComponent : MonoBehaviour {
     // Use this for initialization
     void Start () {
         animator = GetComponent<Animator>();
+        AudioController.SharedInstance.PlaySoundEffect(openDoorSFX, 2);
         animator.SetTrigger("Open");
 	}
 	
     public void CloseDoor() {
+        AudioController.SharedInstance.PlaySoundEffect(closeDoorSFX, 2);
         animator.SetTrigger("Close");
     }
 

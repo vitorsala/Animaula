@@ -241,7 +241,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 2
   bagunca: 0
-  threshold: 20
+  threshold: 10
   activation: 1
   status: 0
   positionInClass: {x: 0, y: 0}
