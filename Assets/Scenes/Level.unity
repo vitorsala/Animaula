@@ -737,7 +737,7 @@ MonoBehaviour:
   ganhou: {fileID: 1699689962}
   perdeu: {fileID: 1007625983}
   scoreText: {fileID: 149671657}
-  lightBGM: {fileID: 8300000, guid: bd0ffce70ed7b6442b693ba4368aa2f3, type: 3}
+  lightBGM: {fileID: 8300000, guid: 4206a3be9cd4aa84e97f389d9b6463cb, type: 3}
   mediumBGM: {fileID: 8300000, guid: 17a3603eee1b6944b88c604b209c2ed8, type: 3}
   heavyBGM: {fileID: 8300000, guid: 4f4499ea53d99c64f845c2b92ad103da, type: 3}
   StartingSound: {fileID: 8300000, guid: d64ecf4c91459be4b819a56a865146df, type: 3}

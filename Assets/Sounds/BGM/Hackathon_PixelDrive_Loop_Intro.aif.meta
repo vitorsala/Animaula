@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: bd0ffce70ed7b6442b693ba4368aa2f3
-timeCreated: 1477224412
+guid: bf1e27b0c19cace47b8666a133bbff25
+timeCreated: 1477245989
 licenseType: Free
 AudioImporter:
   serializedVersion: 6
@@ -18,5 +18,5 @@ AudioImporter:
   loadInBackground: 0
   3D: 1
   userData: 
-  assetBundleName: bgm
+  assetBundleName: 
   assetBundleVariant: 
