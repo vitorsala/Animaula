@@ -109,7 +109,7 @@ public class GameManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         timer -= Time.deltaTime;
-        if(chaos >= numberOfStudents) {
+        if(chaos >= numberOfStudents && timer >= 0) {
             state = GameState.Finished;
             perdeu.SetActive(true);
             // PERDER
@@ -180,6 +180,13 @@ public class GameManager : MonoBehaviour {
 
 		    case GameState.Finished:
                 timer += Time.deltaTime;
+
+                GameObject.FindObjectOfType<TimerBarComponent>().enabled = false;
+
+                foreach(Student s in students) {
+                    s.myDesk.objectInPlace.gameObject.SetActive(false);
+                    s.enabled = false;
+                }
 
                 GameObject temp = (ganhou.activeSelf == true ? ganhou : perdeu);
 
