@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 1ae7dc031ce24d445afca5453655208d
+guid: 17a3603eee1b6944b88c604b209c2ed8
 timeCreated: 1477158708
 licenseType: Free
 AudioImporter:
@@ -18,5 +18,5 @@ AudioImporter:
   loadInBackground: 0
   3D: 1
   userData: 
-  assetBundleName: sfx
+  assetBundleName: bgm
   assetBundleVariant: 
