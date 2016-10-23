@@ -43,7 +43,9 @@ public class Student : MonoBehaviour {
     // Use this for initialization
     void Awake () {
 		status = StudentStatus.Neutral;
-		bagunca = Random.Range(0, threshold - 5);
+
+        LevelManager lm = LevelManager.sharedInstance;
+        bagunca = 0;
 	}
 
     void Start() {
@@ -83,7 +85,7 @@ public class Student : MonoBehaviour {
                 break;
             case StudentStatus.Crying:
                 if(currentTime >= activation) {
-                    currentTime = 0;
+                    currentTime = activation/2;
                     bagunca++;
                     Influences();
                 }
@@ -95,8 +97,8 @@ public class Student : MonoBehaviour {
             case StudentStatus.Chaotic:
                 if(timer <= 0) {
                     Steal();
+                    currentTime = 0;
                 }
-
                 break;
             case StudentStatus.ChaoticBusy:
                 if(currentTime >= activation) {
@@ -178,7 +180,8 @@ public class Student : MonoBehaviour {
 
 			this.status = StudentStatus.ChaoticBusy;
 			this.timer = target.timer;
-		}
+
+        }
 		else {
 			this.timer = 0.5f;
 		}

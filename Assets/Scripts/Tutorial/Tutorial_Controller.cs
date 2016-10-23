@@ -14,11 +14,13 @@ public class Tutorial_Controller : MonoBehaviour {
 
     public GameObject puff;
     public GameObject item;
+    public GameObject missingItem;
 
     //Nem vou fazer um arquivo de strings :)
     private string[] texts = {"OS ALUNOS ESTÃO DESCONTROLADOS!"
                              ,"UM DOS ALUNOS FICOU VERMELHO!\nELE DEVE ESTAR QUERENDO APRONTAR!"
-                             ,"ELE PEGOU SEM PEDIR UM OBJETO DO OUTRO ALUNO, DEVOLVA O OBJETO!"
+                             ,"ELE PEGOU UM OBJETO DO OUTRO ALUNO!"
+                             ,"VAMOS DEVOLVER O OBJETO PARA O DONO!"
                              ,"AGORA VAMOS A AULA!"};
 
     public int text_stage = 0;
@@ -69,6 +71,7 @@ public class Tutorial_Controller : MonoBehaviour {
         {
             if (glove.GetCurrentAnimatorStateInfo(0).IsName("Repeat_Animation"))
             {
+                missingItem.SetActive(false);
                 glove.gameObject.SetActive(false);
                 AnimationBoardChange(true);
                 ChangeText(2);
@@ -113,6 +116,7 @@ public class Tutorial_Controller : MonoBehaviour {
             case 2:
                 puff.SetActive(true);
                 item.SetActive(true);
+                missingItem.SetActive(true);
                 student2.SetInteger("status", 3);
                 text_stage++;
                 break;

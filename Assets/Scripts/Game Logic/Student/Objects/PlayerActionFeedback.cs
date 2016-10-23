@@ -25,12 +25,12 @@ public class PlayerActionFeedback : MonoBehaviour {
 	}
 
 	public void ShowCorrect(){
-        AudioController.SharedInstance.PlaySoundEffect(SharedResources.GetSharedInstance().correctSound, 0, 0.3f);
+        AudioController.SharedInstance.PlaySoundEffect(SharedResources.GetSharedInstance().correctSound, 2, 0.3f);
 		controller.SetInteger("state", 1);
 	}
 
 	public void ShowWrong() {
-        AudioController.SharedInstance.PlaySoundEffect(SharedResources.GetSharedInstance().wrongSound, 0, 0.6f);
+        AudioController.SharedInstance.PlaySoundEffect(SharedResources.GetSharedInstance().wrongSound, 2, 0.6f);
         controller.SetInteger("state", 2);
 	}
 }

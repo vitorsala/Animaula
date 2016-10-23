@@ -88,8 +88,7 @@ public class TileMap : MonoBehaviour {
 	public void UpdateMatrix() {
 		tileInfo = new TileData[(int)size.x * (int)size.y];
 		List<Vector2> temp = new List<Vector2>();
-
-		int j = 0;
+        int j = 0;
 
 		for(int i = 0; i < gameObject.transform.childCount; i++) {
 			TileData go = gameObject.transform.GetChild(i).GetComponent<TileData>();

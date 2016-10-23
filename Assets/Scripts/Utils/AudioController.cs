@@ -10,6 +10,7 @@ public class AudioController : MonoBehaviour {
     }
 
     private AudioSource bgmSource;
+    private AudioSource uiSoundEffects;
     private AudioSource[] soundEffects;
 
     [Range(1,8)] public int numberOfChannels = 1;
@@ -39,6 +40,8 @@ public class AudioController : MonoBehaviour {
 
         bgmSource = gameObject.AddComponent<AudioSource>();
         bgmSource.loop = true;
+
+        uiSoundEffects = gameObject.AddComponent<AudioSource>();
 
         soundEffects = new AudioSource[numberOfChannels];
         for(int i = 0; i < numberOfChannels; i++) {
@@ -87,5 +90,12 @@ public class AudioController : MonoBehaviour {
         selected.time = 0;
         selected.volume = volume;
         selected.Play();
+    }
+
+    public void PlayeUISoundEffect(AudioClip sound) {
+        if(_muted) return;
+        uiSoundEffects.clip = sound;
+        uiSoundEffects.time = 0;
+        uiSoundEffects.Play();
     }
 }

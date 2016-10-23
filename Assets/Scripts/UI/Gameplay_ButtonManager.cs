@@ -9,7 +9,20 @@ public class Gameplay_ButtonManager : MonoBehaviour {
 	private float time;
 	private bool inPause = false;
 
-	public void Button_Pause() {
+
+    void OnApplicationFocus(bool hasFocus) {
+        if(!hasFocus) {
+            Button_Pause();
+        }
+    }
+
+    void OnApplicationPause(bool paused) {
+        if(paused) {
+            Button_Pause();
+        }
+    }
+
+    public void Button_Pause() {
 		if(!inPause) {
 			time = Time.timeScale;
 			Time.timeScale = 0f;
@@ -30,4 +43,8 @@ public class Gameplay_ButtonManager : MonoBehaviour {
 		Time.timeScale = 1f;
 		SceneManager.LoadScene(nome);
 	}
+
+    public void Button_NextLevel() {
+        LevelManager.sharedInstance.FinishLevel();
+    }
 }

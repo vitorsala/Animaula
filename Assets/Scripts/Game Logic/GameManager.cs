@@ -11,17 +11,18 @@ public class GameManager : MonoBehaviour {
     }
 
     enum GameState {
-        Light, Medium, Heavy, Finished
+        Light, Medium, Heavy, ChangingLevel, Finished
     }
     GameState state;
 
     public TimerBarComponent timerBar;
 
-    public float timer;
+    public float classRoomTime;
     public int chaos;
     public int score;
     public float scoreTick;
 
+    private float timer;
     private Student[] students;
     private float timeSinceLastTick;
 
@@ -34,6 +35,7 @@ public class GameManager : MonoBehaviour {
     public int numberOfStudents = 12;
 
     // UI Control
+    public GameObject finishedLevel;
     public GameObject ganhou;
     public GameObject perdeu;
     public Text scoreText;
@@ -60,11 +62,12 @@ public class GameManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         Time.timeScale = 1f;
+        timer = classRoomTime + 3;
         timerBar.duration = timer;
         state = GameState.Light;
         chaos = 0;
-        score = 0;
-
+        score = LevelManager.sharedInstance.score;
+        scoreText.text = score.ToString();
         timeSinceLastTick = -2.9f;
         students = FindObjectsOfType<Student>();
 
@@ -73,8 +76,14 @@ public class GameManager : MonoBehaviour {
 		bgAudioSource.ChangeMusic(lightBGM);
 		bgAudioSource.ChangeBGMVolume(1f);
         bgAudioSource.PlaySoundEffect(StartingSound, 0);
-    }
 
+        GameObject go = GameObject.Find("Class Number");
+        Texture2D texture = SharedResources.GetSharedInstance().numbers[LevelManager.sharedInstance.level];
+        Image im = go.GetComponent<Image>();
+        SharedResources.GetSharedInstance();
+        im.sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f,0.5f));
+
+    }
 
 	private void IncrementScore(){
 		foreach(Student s in students) {
@@ -91,7 +100,6 @@ public class GameManager : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-
         timer -= Time.deltaTime;
         if(chaos >= numberOfStudents) {
             state = GameState.Finished;
@@ -100,15 +108,22 @@ public class GameManager : MonoBehaviour {
         }
         else if(chaos < numberOfStudents && timer <= 0) {
             // Vencer
-			//IncrementScore();
-            state = GameState.Finished;
-            ganhou.SetActive(true);
+            LevelManager lm = LevelManager.sharedInstance;
+            if(lm.level < lm.maxLevel) {
+                state = GameState.ChangingLevel;
+            }
+            else {
+                state = GameState.Finished;
+                ganhou.SetActive(true);
+            }
+        }
+        else {
+            timeSinceLastTick += Time.deltaTime;
+            if(timeSinceLastTick >= scoreTick) {
+                IncrementScore();
+            }
         }
 
-        timeSinceLastTick += Time.deltaTime;
-        if(timeSinceLastTick >= scoreTick) {
-			IncrementScore();
-        }
 
         switch(state) {
             case GameState.Light:
@@ -129,27 +144,37 @@ public class GameManager : MonoBehaviour {
 
                 break;
 
-		case GameState.Finished:
-			Time.timeScale = 0f;
+            case GameState.ChangingLevel:
+                if(students[0].enabled) {
+                    bgAudioSource.PlaySoundEffect(StartingSound, 0);
+                    foreach(Student s in students) {
+                        s.myDesk.objectInPlace.gameObject.SetActive(false);
+                        s.enabled = false;
+                    }
+                }
+                finishedLevel.SetActive(true);
+                //LevelManager.sharedInstance.FinishLevel();
+                break;
 
-			GameObject temp = (ganhou.activeSelf == true ? ganhou : perdeu);
+		    case GameState.Finished:
+			    Time.timeScale = 0f;
 
+			    GameObject temp = (ganhou.activeSelf == true ? ganhou : perdeu);
 
-			Text finalScoreText = temp.transform.Find("score final").gameObject.GetComponent<Text>();
-			Text highScoreText = temp.transform.Find("Highscore value").gameObject.GetComponent<Text>();
-			Text recorde = temp.transform.Find("Recorde").gameObject.GetComponent<Text>();
+			    Text finalScoreText = temp.transform.Find("score final").gameObject.GetComponent<Text>();
+			    Text highScoreText = temp.transform.Find("Highscore value").gameObject.GetComponent<Text>();
+			    Text recorde = temp.transform.Find("Recorde").gameObject.GetComponent<Text>();
 
-			finalScoreText.text = scoreText.text;
-			int hs = PlayerPrefs.GetInt(Constants.HIGH_SCORE_KEY);
-			if(score > hs) {
-				PlayerPrefs.SetInt(Constants.HIGH_SCORE_KEY, score);
-				recorde.enabled = true;
-				hs = score;
-			}
+			    finalScoreText.text = scoreText.text;
+			    int hs = PlayerPrefs.GetInt(Constants.HIGH_SCORE_KEY);
+			    if(score > hs) {
+				    PlayerPrefs.SetInt(Constants.HIGH_SCORE_KEY, score);
+				    recorde.enabled = true;
+				    hs = score;
+			    }
 
-			highScoreText.text = hs.ToString();
-
-            break;
+			    highScoreText.text = hs.ToString();
+                break;
         }
 	}
 }
